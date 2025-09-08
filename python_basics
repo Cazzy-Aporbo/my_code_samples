@@ -1,0 +1,268 @@
+#!/usr/bin/env python3
+"""
+Python Basics — Covers:
+- Arithmetic precedence, casting, bools
+- Strings: slicing, find, concat, upper, split
+- Lists, tuples, sets, dicts; indexing and concatenation
+- Control flow (if/else), loops (range), comprehension-like clarity
+- Functions (return values), classes (data attributes, methods)
+- File I/O with context managers: read, write, append
+- NumPy arrays: elementwise ops, dot, broadcasting, matrix multiply
+- Pandas DataFrame: head()
+
+"""
+
+from __future__ import annotations
+
+import os
+from pathlib import Path
+from typing import List, Tuple, Dict, Any
+
+# Optional: comment these imports if running without NumPy/Pandas
+import numpy as np
+import pandas as pd
+
+
+def section(title: str) -> None:
+    print("\n" + "=" * 80)
+    print(title)
+    print("=" * 80)
+
+
+def arithmetic_and_types() -> None:
+    section("Arithmetic, Types, and Casting")
+    # 1) Operator precedence: 3 + 2*2 = 7
+    result = 3 + 2 * 2
+    print("3 + 2*2 =", result)
+    assert result == 7
+
+    value_true = True # 2) Boolean type
+    print("Type of True:", type(value_true).__name__)
+    assert isinstance(value_true, bool)
+
+    cast_result = int(3.2)  # 3) Casting float->int truncates
+    print("int(3.2) =", cast_result)
+    assert cast_result == 3
+
+
+def string_operations() -> None:
+    section("String Operations")
+    A = "1234567"
+    sliced = A[1::2]
+    print("A[1::2] =", sliced)  # expected '246'
+    assert sliced == "246"
+
+    name = "Michael Jackson"
+    idx = name.find("el")
+    print("Name.find('el') =", idx)  # expected 5
+    assert idx == 5
+
+    # Concatenation of strings
+    A_str, B_str = "1", "2"
+    concat = A_str + B_str
+    print("A + B (strings) =", concat)  # expected '12'
+    assert concat == "12"
+
+    F = "You are wrong"
+    upper_f = F.upper()
+    print("F.upper() =", upper_f)
+    assert upper_f == "YOU ARE WRONG"
+
+    tokens = "1,2,3,4".split(",")
+    print("'1,2,3,4'.split(',') =", tokens)
+    assert tokens == ["1", "2", "3", "4"]
+
+
+def tuples_lists_sets_dicts() -> None:
+    section("Tuples, Lists, Sets, Dicts")
+    tuple1 = ("A", "B", "C")
+    last = tuple1[-1]
+    print("tuple1[-1] =", last)
+    assert last == "C"
+
+    A_nested = ((11, 12), [21, 22])
+    second_elem = A_nested[1]
+    print("A[1] =", second_elem)
+    assert second_elem == [21, 22]
+
+    nested_index = A_nested[0][1]
+    print("A[0][1] =", nested_index)
+    assert nested_index == 12
+
+    A_list = [1, "a"]
+    B_list = [2, 1, "d"]
+    concatenated = A_list + B_list
+    print("A + B (lists) =", concatenated)
+    assert concatenated == [1, "a", 2, 1, "d"]
+
+    a_set = set(concatenated)
+    print("set(A+B) =", a_set)
+
+    V = {"A", "B"}
+    V.add("C")
+    print("After V.add('C'):", V)
+    assert V == {"A", "B", "C"}
+
+    V2 = {"A", "B", "C"}
+    V2.add("C")
+    print("After V2.add('C'):", V2)
+    assert V2 == {"A", "B", "C"}
+
+    d: Dict[str, int] = {"a": 1, "b": 2}
+    keys = list(d.keys())
+    print("dict keys:", keys)
+    assert set(keys) == {"a", "b"}
+
+
+def control_flow_and_loops() -> None:
+    section("Control Flow and Loops")
+    x = "Go"
+    if x != "Go":
+        msg1 = "Stop"
+    else:
+        msg1 = "Go "
+    msg1 += "Cazzy"
+    print("Conditional #1:", msg1)
+    assert msg1 == "Go Cazzy"
+
+    if x == "Go":
+        msg2 = "Go "
+    else:
+        msg2 = "Stop"
+    msg2 += "Cazzy"
+    print("Conditional #2:", msg2)
+    assert msg2 == "Go Cazzy"
+
+    count = 0
+    for n in range(3):
+        count += 1
+    print("Iterations in range(3):", count)
+    assert count == 3
+
+    seq = []
+    for n in range(3):
+        seq.append(n + 1)
+    print("Printed sequence (n+1):", seq)
+    assert seq == [1, 2, 3]
+
+    A = ["1", "2", "3"]
+    doubled_strings = [2 * a for a in A]
+    print("String doubled in loop:", doubled_strings)
+    assert doubled_strings == ["11", "22", "33"]
+
+
+def functions_and_classes() -> None:
+    section("Functions and Classes")
+
+    def Add(x: str, y: str) -> str:
+        z = y + x
+        return y
+
+    add_res = Add("1", "1")
+    print("Add('1','1') returns:", add_res)
+    assert add_res == "1"
+
+    class Points(object):
+        def __init__(self, x: int, y: int) -> None:
+            self.x = x
+            self.y = y
+
+        def print_point(self) -> str:
+            s = f"x={self.x} y={self.y}"
+            print(s)
+            return s
+
+    p1 = Points(1, 2)
+    out1 = p1.print_point()
+    assert out1 == "x=1 y=2"
+
+    p2 = Points(1, 2)
+    p2.x = 2
+    out2 = p2.print_point()
+    assert out2 == "x=2 y=2"
+
+
+def file_io_demo(base_dir: Path) -> None:
+    section("File I/O with Context Managers")
+    example1 = base_dir / "Example1.txt"
+    example2 = base_dir / "Example2.txt"
+    example3 = base_dir / "Example3.txt"
+
+    with open(example2, "w", encoding="utf-8") as writefile:
+        writefile.write("This is line A\n")
+        writefile.write("This is line B\n")
+    print(f"Wrote to {example2.name}")
+
+    with open(example3, "a", encoding="utf-8") as file1:
+        file1.write("This is line C\n")
+    print(f"Appended to {example3.name}")
+
+    if not example1.exists():
+        example1.write_text("Line 1\nLine 2\n", encoding="utf-8")
+
+    with open(example1, "r", encoding="utf-8") as file1:
+        file_content = file1.readlines()
+    print(f"Readlines from {example1.name}:", [line.strip() for line in file_content])
+    assert [line.strip() for line in file_content] == ["Line 1", "Line 2"]
+
+
+def numpy_demo() -> None:
+    section("NumPy Array Operations")
+    a = np.array([0, 1, 0, 1, 0])
+    b = np.array([1, 0, 1, 0, 1])
+    elemwise = a * b
+    print("Elementwise a*b =", elemwise)
+    assert np.array_equal(elemwise, np.array([0, 0, 0, 0, 0]))
+
+    a2 = np.array([0, 1])
+    b2 = np.array([1, 0])
+    dp = np.dot(a2, b2)
+    print("Dot np.dot([0,1],[1,0]) =", dp)
+    assert dp == 0
+
+    a3 = np.array([1, 1, 1, 1, 1])
+    broadcast = a3 + 10
+    print("Broadcast add a+10 =", broadcast)
+    assert np.array_equal(broadcast, np.array([11, 11, 11, 11, 11]))
+
+    A = np.array([[1, 2], [3, 4]])
+    B = np.array([[5, 6], [7, 8]])
+    matmul = np.dot(A, B)
+    print("Matrix multiply np.dot(A,B) =\n", matmul)
+    assert np.array_equal(matmul, np.array([[19, 22], [43, 50]]))
+
+
+def pandas_demo() -> None:
+    section("Pandas DataFrame .head() Demo")
+    df = pd.DataFrame({"x": [1, 2, 3, 4, 5, 6], "y": list("abcdef")})
+    print("df.head():\n", df.head())
+    assert len(df.head()) == 5
+
+
+def list_sort_in_place_demo() -> None:
+    section("List Sort (In-Place vs. New List)")
+    B: List[int] = [5, 2, 9, 1]
+    B.sort()
+    print("B after B.sort():", B)
+    assert B == [1, 2, 5, 9]
+
+
+def main() -> None:
+    base_dir = Path.cwd() / "python_basics_demo"
+    base_dir.mkdir(exist_ok=True)
+
+    arithmetic_and_types()
+    string_operations()
+    tuples_lists_sets_dicts()
+    control_flow_and_loops()
+    functions_and_classes()
+    file_io_demo(base_dir)
+    list_sort_in_place_demo()
+    numpy_demo()
+    pandas_demo()
+
+    print("\nAll demonstrations completed successfully.")
+
+
+if __name__ == "__main__":
+    main()
