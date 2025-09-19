@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>BDS211 · Use & Abuse of Data — Course Welcome, Tools & Career Guide</title>
+<style>
+  :root{
+    --bg:#0b0b0b; --card:#131313; --ink:#ffffff; --muted:#cfcfcf;
+    --accent:#f97316; /* orange */
+    --line:#2a2a2a; --good:#16a34a; --warn:#f59e0b; --bad:#ef4444;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0; color:var(--ink); background:var(--bg); font:16px/1.55 system-ui,Segoe UI,Inter,Arial}
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+  code,kbd,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:13px}
+  .wrap{max-width:1200px; margin:0 auto; padding:28px 18px 100px}
+  header{display:flex; align-items:baseline; gap:14px; margin:6px 0 18px; flex-wrap:wrap}
+  .title{font-weight:900; letter-spacing:.2px; font-size:28px}
+  .tag{font-weight:800; color:#000; background:var(--accent); padding:4px 10px; border-radius:999px}
+  nav.quick{display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 18px}
+  nav.quick a{display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border:1px solid var(--line); background:#101010; border-radius:999px; font-weight:800}
+  .grid{display:grid; gap:16px}
+  .g-3{grid-template-columns:2fr 1fr 1fr}
+  .g-2{grid-template-columns:1fr 1fr}
+  .g-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+  @media (max-width:1100px){.g-4{grid-template-columns:1fr 1fr}}
+  @media (max-width:900px){.g-3,.g-2{grid-template-columns:1fr}}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px}
+  h2{margin:0 0 8px; font-size:20px}
+  h3{margin:0 0 6px; font-size:16px; color:var(--muted); font-weight:800; text-transform:uppercase; letter-spacing:.5px}
+  ul,ol{margin:8px 0 0 20px}
+  .btn{display:inline-flex; align-items:center; gap:8px; border:1px solid var(--line); background:#1a1a1a; color:#fff; padding:10px 12px; border-radius:10px; font-weight:800; cursor:pointer}
+  .btn:hover{border-color:#3a3a3a}
+  .btn.acc{background:var(--accent); border-color:#000; color:#000; font-weight:900}
+  .pill{display:inline-flex; align-items:center; gap:8px; background:#1a1a1a; border:1px solid var(--line); padding:6px 10px; border-radius:999px; font-weight:800}
+  .kbar{display:flex; gap:10px; flex-wrap:wrap; margin:10px 0}
+  .k{background:#111; border:1px solid var(--line); border-left:4px solid var(--accent); border-radius:10px; padding:10px 12px; min-width:190px}
+  details{border:1px solid var(--line); border-radius:10px; padding:12px; background:#111}
+  summary{cursor:pointer; font-weight:800}
+  .def{display:flex; gap:8px; align-items:flex-start}
+  .dot{width:8px; height:8px; border-radius:50%; background:var(--accent); margin-top:8px; flex:0 0 8px}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:13px}
+  .footer{margin-top:20px; color:var(--muted); font-size:14px}
+  .accent{color:var(--accent)}
+  .hl{background:linear-gradient(90deg, rgba(249,115,22,0.15), transparent); padding:0 2px; border-radius:4px}
+  .muted{color:var(--muted)}
+  .badge{display:inline-flex; align-items:center; gap:6px; padding:4px 8px; border:1px solid var(--line); border-radius:999px; font-weight:800; background:#101010}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="title">BDS211 · Use & Abuse of Data: Critical Thinking in Science</div>
+    <span class="tag">Welcome & Complete Toolkit</span>
+  </header>
+
+  <nav class="quick" aria-label="Quick links">
+    <a href="#about">About</a>
+    <a href="#topics">Topics</a>
+    <a href="#definitions">Key Definitions</a>
+    <a href="#tools">Tools & Installs</a>
+    <a href="#workflows">Workflows</a>
+    <a href="#careers">Careers & Transferable Skills</a>
+    <a href="#downloads">Downloads</a>
+    <a href="#faq">FAQ</a>
+    <a href="#help">Help</a>
+  </nav>
+
+  <!-- ABOUT -->
+  <section id="about" class="card">
+    <h2>About the Course</h2>
+    <p>
+      Welcome! This course helps you <span class="hl">think like a data scientist</span>: follow claims back to
+      evidence, choose appropriate methods, and communicate limitations honestly. Our software expectations are modest
+      (by design). We’ll learn the essentials with **JASP**, **Desmos**, and **StatKey**; students who want depth can
+      use **R** or **Python**—both optional and beginner-friendly.
+    </p>
+    <div class="kbar">
+      <div class="k"><strong>Format</strong><br/>Short demos → guided practice → discussion</div>
+      <div class="k"><strong>Assessment</strong><br/>Low-stakes practice + clear write-ups</div>
+      <div class="k"><strong>Goal</strong><br/>Explain what the data truly supports</div>
+    </div>
+    <button class="btn acc" onclick="window.print()">Print / Save as PDF</button>
+  </section>
+
+  <!-- TOPICS -->
+  <section id="topics" class="card" style="margin-top:16px">
+    <h2>Course Topics (with the “why”)</h2>
+    <div class="grid g-2">
+      <div class="card">
+        <h3>Evidence & Arguments</h3>
+        <ul>
+          <li>Claims vs. evidence; operationalizing questions; data provenance</li>
+          <li>Observational vs. experimental designs; randomization & control</li>
+          <li>Reproducibility, transparency, and open science</li>
+        </ul>
+        <p class="muted mono">Why: avoid asserting more than data can justify; make work checkable.</p>
+      </div>
+      <div class="card">
+        <h3>Distributions & Variation</h3>
+        <ul>
+          <li>Center, spread, shape; outliers & robust summaries</li>
+          <li>Visualization choices and how charts can mislead</li>
+        </ul>
+        <p class="muted mono">Why: “average” often hides important structure.</p>
+      </div>
+      <div class="card">
+        <h3>Inference Basics</h3>
+        <ul>
+          <li>Confidence intervals and p-values (what they mean & what they don’t)</li>
+          <li>t-tests, ANOVA, correlation—used responsibly</li>
+        </ul>
+        <p class="muted mono">Why: quantify uncertainty instead of guessing.</p>
+      </div>
+      <div class="card">
+        <h3>Resampling Logic</h3>
+        <ul>
+          <li>Randomization tests; bootstrap intervals (StatKey)</li>
+          <li>Simulation to validate intuition</li>
+        </ul>
+        <p class="muted mono">Why: distribution-free insight builds trust.</p>
+      </div>
+      <div class="card">
+        <h3>Modeling & Assumptions</h3>
+        <ul>
+          <li>Simple regression; residuals and diagnostics</li>
+          <li>Confounding, Simpson’s paradox, leakage</li>
+        </ul>
+        <p class="muted mono">Why: models explain, assumptions constrain.</p>
+      </div>
+      <div class="card">
+        <h3>Ethics & Communication</h3>
+        <ul>
+          <li>Consent, privacy, bias & fairness</li>
+          <li>Plain-language reporting; visual honesty</li>
+        </ul>
+        <p class="muted mono">Why: clarity and integrity are part of the grade.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEFINITIONS -->
+  <section id="definitions" class="card" style="margin-top:16px">
+    <h2>Key Definitions (fast reference)</h2>
+    <div class="grid g-2">
+      <div class="card">
+        <div class="def"><div class="dot"></div><div><strong>Confidence Interval (CI)</strong><br/><span class="muted">Range of plausible values for a population parameter based on a sample.</span></div></div>
+        <div class="def"><div class="dot"></div><div><strong>p-value</strong><br/><span class="muted">Probability of seeing data as or more extreme if the null hypothesis were true.</span></div></div>
+        <div class="def"><div class="dot"></div><div><strong>Effect Size</strong><br/><span class="muted">Magnitude of a relationship/difference (e.g., Cohen’s d, r). Complements p-values.</span></div></div>
+        <div class="def"><div class="dot"></div><div><strong>Confounding</strong><br/><span class="muted">A hidden factor that influences both X and Y, distorting the relationship.</span></div></div>
+      </div>
+      <div class="card">
+        <div class="def"><div class="dot"></div><div><strong>Randomization Test</strong><br/><span class="muted">Significance by shuffling labels to simulate the null world.</span></div></div>
+        <div class="def"><div class="dot"></div><div><strong>Bootstrap</strong><br/><span class="muted">Resample with replacement to estimate variability (e.g., CI).</span></div></div>
+        <div class="def"><div class="dot"></div><div><strong>Overfitting</strong><br/><span class="muted">Model memorizes noise; looks great on training data, fails on new data.</span></div></div>
+        <div class="def"><div class="dot"></div><div><strong>Reproducibility</strong><br/><span class="muted">Independent analysts can obtain the same results given your steps and data.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS & INSTALLS -->
+  <section id="tools" class="card" style="margin-top:16px">
+    <h2>Tools & Installs — Mac & Windows</h2>
+    <p class="muted">Choose what fits your laptop and comfort level. We’ll prioritize understanding over software complexity.</p>
+
+    <div class="grid g-2">
+      <div class="card">
+        <h3>GUI & Web (no coding)</h3>
+
+        <details open>
+          <summary>JASP — point-and-click statistics</summary>
+          <div class="grid g-2" style="margin-top:8px">
+            <div>
+              <strong>Windows</strong>
+              <ol>
+                <li>Download: <a href="https://jasp-stats.org/download/" target="_blank" rel="noopener">jasp-stats.org/download</a></li>
+                <li>Run installer → allow defaults</li>
+                <li>Launch JASP</li>
+              </ol>
+            </div>
+            <div>
+              <strong>macOS</strong>
+              <ol>
+                <li>Download the macOS .dmg</li>
+                <li>Open and drag JASP into Applications</li>
+                <li>Right-click → Open if Gatekeeper warns</li>
+              </ol>
+            </div>
+          </div>
+          <ul>
+            <li><strong>Docs:</strong> <a href="https://jasp-stats.org/learn/" target="_blank" rel="noopener">Getting Started</a> · <a href="https://jasp-stats.org/help/" target="_blank" rel="noopener">Help & Modules</a></li>
+            <li><strong>Good for:</strong> t-tests, ANOVA, correlation, simple regression, APA tables</li>
+            <li><strong>Limitations:</strong> less flexible than code; reproducibility via saving the .jasp file</li>
+          </ul>
+          <p class="mono">Smoke test: File → Open → load <code>bds211_sleep_study.csv</code> → run a t-test.</p>
+        </details>
+
+        <details>
+          <summary>Desmos — quick graphs</summary>
+          <ul>
+            <li>Web: <a href="https://www.desmos.com/calculator" target="_blank" rel="noopener">desmos.com/calculator</a></li>
+            <li>Docs: <a href="https://help.desmos.com/hc/en-us" target="_blank" rel="noopener">Help Center</a></li>
+            <li>Good for: distributions, lines, sanity checks</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary>StatKey — resampling (browser)</summary>
+          <ul>
+            <li>Web: <a href="http://www.lock5stat.com/StatKey/" target="_blank" rel="noopener">lock5stat.com/StatKey</a></li>
+            <li>Good for: bootstrap CIs, randomization tests</li>
+            <li>Tip: start with built-in datasets; then upload CSV</li>
+          </ul>
+        </details>
+      </div>
+
+      <div class="card">
+        <h3>Coding (optional depth)</h3>
+
+        <details open>
+          <summary>R + RStudio (friendly stats workflow)</summary>
+          <div class="grid g-2" style="margin-top:8px">
+            <div>
+              <strong>Windows</strong>
+              <ol>
+                <li>Install R from <a href="https://cran.r-project.org/" target="_blank" rel="noopener">CRAN</a></li>
+                <li>Install RStudio Desktop: <a href="https://posit.co/download/rstudio-desktop/" target="_blank" rel="noopener">posit.co</a></li>
+              </ol>
+            </div>
+            <div>
+              <strong>macOS</strong>
+              <ol>
+                <li>Install R (choose macOS pkg) from CRAN</li>
+                <li>Install RStudio Desktop (macOS)</li>
+              </ol>
+            </div>
+          </div>
+          <ul>
+            <li><strong>Docs:</strong> <a href="https://r4ds.hadley.nz/" target="_blank" rel="noopener">R for Data Science</a> · <a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.html" target="_blank" rel="noopener">R Intro</a></li>
+            <li><strong>First-run:</strong> in RStudio Console → <code>install.packages(c("tidyverse","infer","broom"))</code></li>
+            <li><strong>Good for:</strong> transparent analyses, ggplot visuals, literate reports (R Markdown)</li>
+          </ul>
+          <p class="mono">Open <code>bds211_starter.R</code> and run line-by-line.</p>
+        </details>
+
+        <details>
+          <summary>Python + Jupyter (analysis + viz)</summary>
+          <div class="grid g-2" style="margin-top:8px">
+            <div>
+              <strong>Windows</strong>
+              <ol>
+                <li>Install <a href="https://docs.conda.io/en/latest/miniconda.html" target="_blank" rel="noopener">Miniconda</a></li>
+                <li>Open Anaconda Prompt → <code>conda create -n bds211 python=3.11 -y</code></li>
+                <li><code>conda activate bds211</code> → <code>pip install numpy pandas matplotlib seaborn scipy statsmodels jupyter</code></li>
+              </ol>
+            </div>
+            <div>
+              <strong>macOS</strong>
+              <ol>
+                <li>Install Miniconda (macOS pkg)</li>
+                <li>Terminal → same commands as Windows</li>
+              </ol>
+            </div>
+          </div>
+          <ul>
+            <li><strong>Docs:</strong> <a href="https://pandas.pydata.org/docs/user_guide/" target="_blank" rel="noopener">Pandas</a> · <a href="https://www.statsmodels.org/stable/user-guide.html" target="_blank" rel="noopener">statsmodels</a> · <a href="https://jupyter.org/" target="_blank" rel="noopener">Jupyter</a></li>
+            <li><strong>First-run:</strong> <code>jupyter notebook</code> → open <code>bds211_starter_notebook.ipynb</code></li>
+            <li><strong>Good for:</strong> reproducible notebooks, flexible stats, custom visuals</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary>VS Code (optional editor)</summary>
+          <ul>
+            <li>Download: <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com</a></li>
+            <li>Extensions: “Python”, “R”, “Jupyter”</li>
+          </ul>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKFLOWS -->
+  <section id="workflows" class="card" style="margin-top:16px">
+    <h2>Recommended Workflows</h2>
+    <div class="grid g-4">
+      <div class="card">
+        <h3>JASP (No-code)</h3>
+        <ol>
+          <li>Import CSV → inspect columns & missingness</li>
+          <li>Describe → Descriptives (plots + summary)</li>
+          <li>Run test (t, ANOVA, corr) → check assumptions</li>
+          <li>Export APA table → write a 3-sentence interpretation</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>StatKey (Concept demo)</h3>
+        <ol>
+          <li>Select procedure → choose example data</li>
+          <li>Bootstrap or randomization → visualize sampling</li>
+          <li>Capture CI/p-value → compare to JASP/Python</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>R (Reproducible)</h3>
+        <ol>
+          <li><code>readr::read_csv()</code> → <code>dplyr</code> clean</li>
+          <li><code>ggplot2</code> plot → check assumptions</li>
+          <li><code>t.test()</code>, <code>aov()</code> or <code>lm()</code></li>
+          <li>Report effect size + CI in plain English</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>Python (Notebook)</h3>
+        <ol>
+          <li><code>pandas.read_csv</code> → <code>.info()</code>, <code>.describe()</code></li>
+          <li><code>matplotlib</code>/<code>seaborn</code> plots</li>
+          <li><code>scipy.stats</code> or <code>statsmodels</code> for tests/models</li>
+          <li>Narrate results + attach figure</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAREERS -->
+  <section id="careers" class="card" style="margin-top:16px">
+    <h2>Careers & Transferable Skills</h2>
+    <div class="grid g-2">
+      <div class="card">
+        <h3>Where these tools show up</h3>
+        <ul>
+          <li><strong>Biology & Health:</strong> clinical trials basics, lab QA/QC, public health dashboards</li>
+          <li><strong>Environmental Science:</strong> air/water quality trends, impact modeling</li>
+          <li><strong>Psychology & Social Science:</strong> survey design, experimental analysis</li>
+          <li><strong>Business & Ops:</strong> A/B tests, forecasting, KPI tracking</li>
+          <li><strong>Engineering:</strong> reliability data, process controls, DoE</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Skills you will practice</h3>
+        <ul>
+          <li>Formulating testable questions; defining variables</li>
+          <li>Cleaning, summarizing, and visualizing data</li>
+          <li>Running basic tests *with* assumptions stated</li>
+          <li>Writing concise, audience-appropriate conclusions</li>
+          <li>Reproducible habits (naming, versioning, notebooks)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOADS -->
+  <section id="downloads" class="card" style="margin-top:16px">
+    <h2>Downloads (Starter Assets)</h2>
+    <ul>
+      <li><a href="sandbox:/mnt/data/bds211_sleep_study.csv">bds211_sleep_study.csv</a> — small dataset for JASP/R/Python</li>
+      <li><a href="sandbox:/mnt/data/bds211_starter_notebook.ipynb">bds211_starter_notebook.ipynb</a> — Python/Jupyter template</li>
+      <li><a href="sandbox:/mnt/data/bds211_starter.R">bds211_starter.R</a> — R script template</li>
+    </ul>
+    <p class="mono">Windows: right-click → “Save link as…” · macOS: Ctrl-click → “Download Linked File”. Place files in a simple folder (e.g., Desktop/bds211).</p>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="card" style="margin-top:16px">
+    <h2>FAQ</h2>
+
+    <details open>
+      <summary>I’m new to stats and coding. Will I be okay?</summary>
+      <p>Yes. You can complete the course using JASP + StatKey + Desmos. R/Python are optional for students who want extra control or plan to pursue data-heavy fields.</p>
+    </details>
+
+    <details>
+      <summary>How do I install these on my home computer?</summary>
+      <p>Follow the steps under <em>Tools & Installs — Mac & Windows</em>. If your OS blocks an app (Gatekeeper on macOS or SmartScreen on Windows), right-click the app and choose <em>Open</em> to allow it.</p>
+    </details>
+
+    <details>
+      <summary>What if my laptop is underpowered?</summary>
+      <p>Use web tools (Desmos, StatKey) and campus machines for heavier tasks if needed. JASP and R are lightweight on most laptops.</p>
+    </details>
+
+    <details>
+      <summary>What file formats do we use?</summary>
+      <p>CSV for datasets; PDF/DOCX for short write-ups; optional: .jasp (JASP), .R (R), .ipynb (Jupyter).</p>
+    </details>
+
+    <details>
+      <summary>How are assignments graded?</summary>
+      <p>On clarity of reasoning and correct interpretation—including limitations and assumptions—not just calculations.</p>
+    </details>
+
+    <details>
+      <summary>Accessibility & accommodations?</summary>
+      <p>Contact Disability Access Services (DAS) and the instructor early so we can plan appropriate adjustments.</p>
+    </details>
+  </section>
+
+  <!-- HELP -->
+  <section id="help" class="card" style="margin-top:16px">
+    <h2>Quick Help & Support</h2>
+    <div class="grid g-3">
+      <div class="card">
+        <h3>Office Hours</h3>
+        <p>Email to schedule. Bring your laptop and your current dataset or question.</p>
+      </div>
+      <div class="card">
+        <h3>Study Habits</h3>
+        <ul>
+          <li>Skim notes before class; annotate during demos</li>
+          <li>Replicate examples with a tiny dataset first</li>
+          <li>Write one paragraph in plain English per result</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Academic Integrity</h3>
+        <p>Collaborate on ideas, write your own code/words, and cite tools/data sources. When in doubt, ask.</p>
+      </div>
+    </div>
+    <p class="footer">Past instructor Irene Moore emphasized keeping software expectations realistic. We’ll focus on reasoning and clear communication with approachable tools.</p>
+  </section>
+
+  <p class="footer">
+    © 2025 · BDS211 — Use & Abuse of Data · Design: black/white with <span class="accent">orange</span> accents for clarity.
+  </p>
+</div>
+</body>
+</html>

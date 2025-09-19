@@ -1,0 +1,1831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bio Mirror - Advanced biometric visualization and health monitoring research platform">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: blob:; img-src * data: blob:; frame-src *;">
+    <title>Bio Mirror - Real-Time Bio-Reflective Smart Surface</title>
+    
+    <!-- 
+    ========================================
+    BIO MIRROR v2.0 - RESEARCH EDITION
+    ========================================
+    
+    Real-Time, Bio-Reflective Smart Surfaces That Show You What Your Body Can't Say Yet
+    
+    CUSTOMIZATION GUIDE:
+    - Colors: Search for "TODO: COLORS" to modify theme palettes
+    - Thresholds: Search for "TODO: THRESHOLDS" for biometric ranges
+    - Data: Search for "TODO: DATA" to update case studies/research
+    - Content: Search for "TODO: CONTENT" for text customization
+    
+    TO PUBLISH:
+    1. Save this file as index.html
+    2. Upload to any static host (GitHub Pages, Netlify, etc)
+    3. No build process required - it's ready to go!
+    -->
+    
+    <style>
+        /* ===== CSS RESET & VARIABLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            /* Professional color scheme */
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --accent: #06b6d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            
+            --bg-gradient: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e3a8a 100%);
+            --card-gradient: linear-gradient(135deg, rgba(30, 27, 75, 0.9), rgba(49, 46, 129, 0.7));
+            
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.85);
+            --text-muted: rgba(255, 255, 255, 0.6);
+            --surface: rgba(255, 255, 255, 0.08);
+            --surface-hover: rgba(255, 255, 255, 0.12);
+            --border: rgba(255, 255, 255, 0.15);
+            --border-strong: rgba(255, 255, 255, 0.25);
+            
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            --spacing-3xl: 4rem;
+            
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+            
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.2);
+            --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.25);
+            --shadow-glow: 0 0 40px rgba(6, 182, 212, 0.3);
+            
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
+        }
+        
+        /* ===== BASE STYLES ===== */
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-gradient);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            letter-spacing: 0.01em;
+        }
+        
+        /* ===== TYPOGRAPHY ===== */
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+        
+        h2 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+        
+        h3 {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, var(--accent), var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* ===== ICONS (SVG-based) ===== */
+        .icon {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        .icon-lg {
+            width: 48px;
+            height: 48px;
+        }
+        
+        .icon-xl {
+            width: 64px;
+            height: 64px;
+        }
+        
+        /* ===== LAYOUT ===== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+        }
+        
+        .grid {
+            display: grid;
+            gap: var(--spacing-lg);
+        }
+        
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+        
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+        
+        /* ===== HEADER ===== */
+        header {
+            background: rgba(30, 27, 75, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-md) var(--spacing-lg);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-lg);
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+        }
+        
+        .nav-links a:hover {
+            color: var(--text-primary);
+            background: var(--surface);
+        }
+        
+        /* ===== HERO SECTION ===== */
+        .hero {
+            padding: var(--spacing-3xl) 0;
+            text-align: center;
+        }
+        
+        .hero-title {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto var(--spacing-xl);
+            font-weight: 300;
+        }
+        
+        .hero-description {
+            max-width: 1000px;
+            margin: 0 auto var(--spacing-2xl);
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+        
+        /* ===== CARDS ===== */
+        .card {
+            background: var(--card-gradient);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--border-strong);
+        }
+        
+        .card:hover::before {
+            opacity: 1;
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .card-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .card-badge {
+            display: inline-block;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            background: var(--accent);
+            color: white;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        /* ===== BIOMETRIC INTERFACE ===== */
+        .bio-interface {
+            background: rgba(30, 27, 75, 0.6);
+            backdrop-filter: blur(40px);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-2xl);
+            margin: var(--spacing-3xl) auto;
+            position: relative;
+        }
+        
+        .bio-header {
+            margin-bottom: var(--spacing-2xl);
+        }
+        
+        .bio-status {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+        }
+        
+        /* ===== CONTROLS ===== */
+        .control-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-2xl);
+        }
+        
+        .control-group {
+            background: var(--surface);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+        }
+        
+        .control-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .control-title {
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+        }
+        
+        .control-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .control-range {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+        
+        .control-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+        }
+        
+        .control-range::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+        }
+        
+        .control-info {
+            margin-top: var(--spacing-sm);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        
+        /* ===== VISUALIZATION ===== */
+        .visualization-container {
+            position: relative;
+            height: 500px;
+            background: radial-gradient(ellipse at center, var(--surface) 0%, transparent 70%);
+            border-radius: var(--radius-lg);
+            margin: var(--spacing-2xl) 0;
+            overflow: hidden;
+        }
+        
+        #bioCanvas {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .visualization-overlay {
+            position: absolute;
+            top: var(--spacing-lg);
+            left: var(--spacing-lg);
+            right: var(--spacing-lg);
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+        
+        .viz-stat {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+        }
+        
+        /* ===== METRICS ===== */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin: var(--spacing-2xl) 0;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, var(--surface), transparent);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .metric-card:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent);
+        }
+        
+        .metric-icon {
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .metric-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .metric-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .metric-change {
+            font-size: 0.75rem;
+            color: var(--success);
+            margin-top: var(--spacing-xs);
+        }
+        
+        /* ===== RESEARCH SECTION ===== */
+        .research-section {
+            padding: var(--spacing-3xl) 0;
+        }
+        
+        .research-header {
+            text-align: center;
+            margin-bottom: var(--spacing-3xl);
+        }
+        
+        .research-description {
+            max-width: 800px;
+            margin: 0 auto var(--spacing-2xl);
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+        
+        .research-search {
+            max-width: 600px;
+            margin: 0 auto var(--spacing-2xl);
+        }
+        
+        .search-container {
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: var(--spacing-md) var(--spacing-lg);
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: var(--surface-hover);
+        }
+        
+        .search-button {
+            position: absolute;
+            right: var(--spacing-sm);
+            top: 50%;
+            transform: translateY(-50%);
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .search-button:hover {
+            background: var(--primary);
+        }
+        
+        .research-papers {
+            display: grid;
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-2xl);
+        }
+        
+        .paper-card {
+            background: var(--surface);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        
+        .paper-card:hover {
+            background: var(--surface-hover);
+            border-color: var(--accent);
+        }
+        
+        .paper-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+        }
+        
+        .paper-authors {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .paper-abstract {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .paper-meta {
+            display: flex;
+            gap: var(--spacing-lg);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            padding-top: var(--spacing-md);
+            border-top: 1px solid var(--border);
+        }
+        
+        .paper-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .paper-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* ===== BUTTONS ===== */
+        .btn {
+            padding: var(--spacing-sm) var(--spacing-lg);
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-secondary {
+            background: var(--surface);
+            border: 2px solid var(--border);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--surface-hover);
+            border-color: var(--accent);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+        
+        /* ===== TABS ===== */
+        .tabs {
+            display: flex;
+            gap: var(--spacing-sm);
+            border-bottom: 2px solid var(--border);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .tab {
+            padding: var(--spacing-md) var(--spacing-lg);
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+        }
+        
+        .tab:hover {
+            color: var(--text-primary);
+        }
+        
+        .tab.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* ===== MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            padding: var(--spacing-lg);
+            overflow-y: auto;
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: var(--card-gradient);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-2xl);
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .modal-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 2rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+        
+        .close-btn:hover {
+            background: var(--surface);
+            color: var(--text-primary);
+        }
+        
+        /* ===== INFO BOXES ===== */
+        .info-box {
+            background: linear-gradient(135deg, var(--surface), transparent);
+            border-left: 4px solid var(--accent);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            margin: var(--spacing-lg) 0;
+        }
+        
+        .info-box-title {
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            color: var(--accent);
+        }
+        
+        .info-box-content {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        /* ===== STATISTICS ===== */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--spacing-lg);
+            text-align: center;
+            padding: var(--spacing-xl);
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            margin: var(--spacing-2xl) 0;
+        }
+        
+        .stat-item {
+            padding: var(--spacing-md);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: var(--spacing-sm);
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: var(--spacing-md);
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .control-panel {
+                grid-template-columns: 1fr;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+        
+        /* ===== ACCESSIBILITY ===== */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        :focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+        
+        /* ===== LOADING ===== */
+        .skeleton {
+            background: linear-gradient(90deg, var(--surface) 0%, var(--surface-hover) 50%, var(--surface) 100%);
+            background-size: 200% 100%;
+            animation: loading 1.5s ease-in-out infinite;
+            border-radius: var(--radius-sm);
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="5" y="2" width="14" height="20" rx="2"/>
+                    <path d="M12 6v4"/>
+                    <path d="M10 10h4"/>
+                </svg>
+                <span class="text-gradient">Bio Mirror</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#concept">Concept</a></li>
+                <li><a href="#interface">Interface</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#technology">Technology</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Hero Section -->
+        <section id="concept" class="hero">
+            <h1 class="hero-title text-gradient">The Bio-Mirror Project</h1>
+            <p class="hero-subtitle">
+                Real-Time, Bio-Reflective Smart Surfaces That Show You What Your Body Can't Say Yet
+            </p>
+            
+            <div class="hero-description">
+                <p>
+                    Imagine looking into your bathroom mirror and seeing a <strong>real-time reflection of your internal health</strong>, 
+                    not just your appearance. The Bio-Mirror is a smart surface embedded with biosignal-detecting sensors, 
+                    environmental sensors, and AI-driven visual overlays. It doesn't just reflect your face—it reflects your 
+                    <strong>invisible symptoms</strong>, your <strong>nervous system state</strong>, your <strong>hormonal rhythm</strong>, 
+                    and your <strong>cellular stress load</strong>.
+                </p>
+            </div>
+            
+            <!-- How It Works Cards -->
+            <div class="grid grid-4" style="margin-top: var(--spacing-3xl);">
+                <div class="card">
+                    <div class="card-header">
+                        <svg class="icon-lg" viewBox="0 0 48 48" fill="none" stroke="var(--accent)" stroke-width="2">
+                            <circle cx="24" cy="24" r="20"/>
+                            <circle cx="16" cy="20" r="3"/>
+                            <circle cx="32" cy="20" r="3"/>
+                            <path d="M16 32s3 3 8 3 8-3 8-3"/>
+                        </svg>
+                    </div>
+                    <h3 class="card-title">Facial Analysis</h3>
+                    <p class="card-description">
+                        Optical sensors and AI track microexpressions, pupil response, stress dilation, 
+                        fatigue lines, and pallor changes linked to various health conditions.
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <svg class="icon-lg" viewBox="0 0 48 48" fill="none" stroke="var(--accent)" stroke-width="2">
+                            <rect x="8" y="8" width="32" height="32" rx="4"/>
+                            <path d="M16 24l8-8 8 8"/>
+                            <path d="M16 32l8-8 8 8"/>
+                        </svg>
+                    </div>
+                    <h3 class="card-title">Thermal Imaging</h3>
+                    <p class="card-description">
+                        Infrared skin mapping passively reads temperature variations across face and neck, 
+                        flagging hormonal imbalances and inflammation patterns.
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <svg class="icon-lg" viewBox="0 0 48 48" fill="none" stroke="var(--accent)" stroke-width="2">
+                            <path d="M24 4v40"/>
+                            <path d="M8 16h32"/>
+                            <path d="M8 32h32"/>
+                            <circle cx="24" cy="24" r="4"/>
+                        </svg>
+                    </div>
+                    <h3 class="card-title">Environmental Sync</h3>
+                    <p class="card-description">
+                        Integrates with home air quality sensors, sleep monitors, and wearables to understand 
+                        environmental impact on health.
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <svg class="icon-lg" viewBox="0 0 48 48" fill="none" stroke="var(--accent)" stroke-width="2">
+                            <rect x="8" y="12" width="32" height="24" rx="4"/>
+                            <circle cx="16" cy="24" r="2" fill="var(--success)"/>
+                            <circle cx="24" cy="24" r="2" fill="var(--warning)"/>
+                            <circle cx="32" cy="24" r="2" fill="var(--danger)"/>
+                        </svg>
+                    </div>
+                    <h3 class="card-title">Health Overlay</h3>
+                    <p class="card-description">
+                        Visual bio-overlay system: Green = balanced, Amber = early stress signs, 
+                        Red = immediate attention needed.
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Biometric Interface -->
+        <section id="interface" class="bio-interface">
+            <div class="bio-header">
+                <div class="bio-status">
+                    <span class="status-indicator"></span>
+                    <span>System Active</span>
+                </div>
+                <h2>Live Biometric Monitoring Interface</h2>
+                <p class="card-description" style="margin-top: var(--spacing-md);">
+                    Advanced biosignal detection and real-time health analysis platform demonstrating 
+                    the core capabilities of the Bio-Mirror system.
+                </p>
+            </div>
+            
+            <!-- Control Panel -->
+            <div class="control-panel">
+                <div class="control-group">
+                    <div class="control-label">
+                        <span class="control-title">Heart Rate Variability</span>
+                        <span class="control-value" id="hrValue">72</span>
+                    </div>
+                    <input type="range" class="control-range" id="hrSlider" min="40" max="180" value="72">
+                    <div class="control-info">
+                        Normal range: 60-100 BPM. HRV indicates autonomic nervous system balance.
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-label">
+                        <span class="control-title">Respiratory Pattern</span>
+                        <span class="control-value" id="rrValue">16</span>
+                    </div>
+                    <input type="range" class="control-range" id="rrSlider" min="8" max="30" value="16">
+                    <div class="control-info">
+                        Normal range: 12-20 breaths/min. Patterns indicate stress and metabolic state.
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-label">
+                        <span class="control-title">Skin Temperature</span>
+                        <span class="control-value" id="tempValue">98.6°F</span>
+                    </div>
+                    <input type="range" class="control-range" id="tempSlider" min="95" max="104" value="98.6" step="0.1">
+                    <div class="control-info">
+                        Thermal variations indicate inflammation and hormonal changes.
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-label">
+                        <span class="control-title">Stress Index</span>
+                        <span class="control-value" id="stressValue">3.2</span>
+                    </div>
+                    <input type="range" class="control-range" id="stressSlider" min="1" max="10" value="3.2" step="0.1">
+                    <div class="control-info">
+                        Composite score from multiple biosignals. Lower values indicate relaxation.
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-label">
+                        <span class="control-title">Blood Oxygen</span>
+                        <span class="control-value" id="spo2Value">98%</span>
+                    </div>
+                    <input type="range" class="control-range" id="spo2Slider" min="85" max="100" value="98">
+                    <div class="control-info">
+                        SpO2 levels. Normal range: 95-100%. Critical below 90%.
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-label">
+                        <span class="control-title">Hydration Level</span>
+                        <span class="control-value" id="hydrationValue">75%</span>
+                    </div>
+                    <input type="range" class="control-range" id="hydrationSlider" min="40" max="100" value="75">
+                    <div class="control-info">
+                        Estimated from skin conductance and thermal patterns.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Visualization -->
+            <div class="visualization-container">
+                <canvas id="bioCanvas"></canvas>
+                <div class="visualization-overlay">
+                    <div class="viz-stat">
+                        <small>Signal Quality</small>
+                        <div style="color: var(--success);">Excellent</div>
+                    </div>
+                    <div class="viz-stat">
+                        <small>Analysis Mode</small>
+                        <div style="color: var(--accent);">Real-Time</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Metrics Dashboard -->
+            <div class="metrics-grid">
+                <div class="metric-card" onclick="showMetricDetails('cardiovascular')">
+                    <svg class="icon-lg metric-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M24 36l-12-12c-3-3-3-9 0-12s9-3 12 0c3-3 9-3 12 0s3 9 0 12l-12 12z" fill="var(--danger)" opacity="0.2"/>
+                        <path d="M24 36l-12-12c-3-3-3-9 0-12s9-3 12 0c3-3 9-3 12 0s3 9 0 12l-12 12z"/>
+                    </svg>
+                    <div class="metric-value" id="cardioScore">92</div>
+                    <div class="metric-label">Cardiovascular Score</div>
+                    <div class="metric-change">↑ 2.3% from baseline</div>
+                </div>
+                
+                <div class="metric-card" onclick="showMetricDetails('respiratory')">
+                    <svg class="icon-lg metric-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                        <ellipse cx="16" cy="24" rx="8" ry="12" opacity="0.2" fill="var(--accent)"/>
+                        <ellipse cx="32" cy="24" rx="8" ry="12" opacity="0.2" fill="var(--accent)"/>
+                        <ellipse cx="16" cy="24" rx="8" ry="12"/>
+                        <ellipse cx="32" cy="24" rx="8" ry="12"/>
+                    </svg>
+                    <div class="metric-value" id="respScore">88</div>
+                    <div class="metric-label">Respiratory Health</div>
+                    <div class="metric-change">→ Stable</div>
+                </div>
+                
+                <div class="metric-card" onclick="showMetricDetails('neurological')">
+                    <svg class="icon-lg metric-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="24" cy="24" r="16" opacity="0.2" fill="var(--secondary)"/>
+                        <circle cx="24" cy="24" r="16"/>
+                        <path d="M24 16v8l6 6"/>
+                    </svg>
+                    <div class="metric-value" id="neuroScore">95</div>
+                    <div class="metric-label">Neurological Balance</div>
+                    <div class="metric-change">↑ 5.1% improvement</div>
+                </div>
+                
+                <div class="metric-card" onclick="showMetricDetails('metabolic')">
+                    <svg class="icon-lg metric-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M8 24h8l4-12 8 24 4-12h8"/>
+                        <circle cx="24" cy="24" r="2" fill="var(--accent)"/>
+                    </svg>
+                    <div class="metric-value" id="metabolicScore">87</div>
+                    <div class="metric-label">Metabolic Rate</div>
+                    <div class="metric-change">↓ 1.2% from average</div>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="btn-group" style="justify-content: center; margin-top: var(--spacing-2xl);">
+                <button class="btn" onclick="exportData()">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                        <path d="M7 10l5 5 5-5"/>
+                        <path d="M12 15V3"/>
+                    </svg>
+                    Export Data
+                </button>
+                <button class="btn btn-secondary" onclick="calibrateSystem()">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M12 1v6"/>
+                        <path d="M12 17v6"/>
+                        <path d="M4.22 4.22l4.24 4.24"/>
+                        <path d="M15.54 15.54l4.24 4.24"/>
+                        <path d="M1 12h6"/>
+                        <path d="M17 12h6"/>
+                        <path d="M4.22 19.78l4.24-4.24"/>
+                        <path d="M15.54 8.46l4.24-4.24"/>
+                    </svg>
+                    Calibrate
+                </button>
+                <button class="btn btn-secondary" onclick="openSettings()">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M12 1v6"/>
+                        <path d="M12 17v6"/>
+                        <path d="M4.22 4.22l4.24 4.24"/>
+                        <path d="M15.54 15.54l4.24 4.24"/>
+                        <path d="M1 12h6"/>
+                        <path d="M17 12h6"/>
+                    </svg>
+                    Settings
+                </button>
+            </div>
+        </section>
+        
+        <!-- Research Section -->
+        <section id="research" class="research-section">
+            <div class="research-header">
+                <h2 class="text-gradient">Advanced Research & Publications</h2>
+                <p class="research-description">
+                    Explore peer-reviewed research on biomarker detection, smart mirror technology, 
+                    and real-time health monitoring systems. Our research database includes the latest 
+                    advances in biosensor technology and AI-driven health analysis.
+                </p>
+            </div>
+            
+            <!-- ArXiv Search Integration -->
+            <div class="research-search">
+                <div class="info-box">
+                    <div class="info-box-title">ArXiv Explorer Integration</div>
+                    <div class="info-box-content">
+                        Search the latest preprints and research papers using the ArXiv Explorer engine. 
+                        Access cutting-edge research in biomedical engineering, computer vision, and health monitoring.
+                    </div>
+                </div>
+                
+                <div class="search-container">
+                    <input type="text" class="search-input" id="arxivSearch" 
+                           placeholder="Search ArXiv for biomarker detection, smart mirrors, health monitoring...">
+                    <button class="search-button" onclick="searchArxiv()">Search ArXiv</button>
+                </div>
+                
+                <div style="text-align: center; margin-top: var(--spacing-md);">
+                    <a href="https://arxivxplorer.com" target="_blank" class="paper-link">
+                        Open ArXiv Explorer in New Tab →
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Featured Research Papers -->
+            <div class="research-papers">
+                <div class="paper-card">
+                    <span class="card-badge">PMC</span>
+                    <h3 class="paper-title">Recent Progress of Biomarker Detection Sensors</h3>
+                    <p class="paper-authors">Multiple Authors - PMC7585038</p>
+                    <p class="paper-abstract">
+                        Specific binding is the principle behind biomarker detection sensors. This comprehensive review 
+                        examines recent advances in biosensor technology, focusing on electrochemical detection methods 
+                        and their applications in real-time health monitoring. The paper discusses various sensor 
+                        architectures and their effectiveness in detecting different biomarkers at the electrode level.
+                    </p>
+                    <div class="paper-meta">
+                        <span>Published: 2020</span>
+                        <span>Journal: PMC</span>
+                        <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7585038/" target="_blank" class="paper-link">
+                            Read Full Paper →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="paper-card">
+                    <span class="card-badge">IEEE</span>
+                    <h3 class="paper-title">Smart Mirror - A Secured Application of AI Recognizing Human Face and Voice</h3>
+                    <p class="paper-authors">K. Mukhopadhyay, C. Sinha, H. N. Saha, S. Rakshit, S. Auddy</p>
+                    <p class="paper-abstract">
+                        This paper presents a comprehensive smart mirror system integrating artificial intelligence 
+                        for face and voice recognition. The system provides personalized health information and 
+                        implements robust security measures for user privacy. The research demonstrates practical 
+                        applications in home healthcare environments.
+                    </p>
+                    <div class="paper-meta">
+                        <span>Published: 2018</span>
+                        <span>Conference: IEEE IEMCON</span>
+                        <span>DOI: 10.1109/IEMCON.2018.8615072</span>
+                        <a href="https://ieeexplore.ieee.org/document/8615072" target="_blank" class="paper-link">
+                            Read Full Paper →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="paper-card">
+                    <span class="card-badge">Sensors</span>
+                    <h3 class="paper-title">A Smart Mirror for Emotion Monitoring in Home Environments</h3>
+                    <p class="paper-authors">S. Bianco, L. Celona, G. Ciocca, D. Marelli, P. Napoletano, S. Yu, R. Schettini</p>
+                    <p class="paper-abstract">
+                        This research presents an innovative smart mirror system designed for emotion monitoring 
+                        in home environments. Using computer vision and machine learning techniques, the system 
+                        can detect and analyze emotional states through facial expression analysis. The paper 
+                        demonstrates applications in mental health monitoring and personalized healthcare.
+                    </p>
+                    <div class="paper-meta">
+                        <span>Published: 2021</span>
+                        <span>Journal: Sensors (Basel)</span>
+                        <span>DOI: 10.3390/s21227453</span>
+                        <span>PMID: 34833529</span>
+                        <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8625889/" target="_blank" class="paper-link">
+                            Read Full Paper →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="paper-card">
+                    <span class="card-badge">IJERT</span>
+                    <h3 class="paper-title">Smart Mirror: Interactive Health Monitoring System</h3>
+                    <p class="paper-authors">Various Authors - IJERTV8IS050029</p>
+                    <p class="paper-abstract">
+                        This paper explores the design and implementation of an interactive smart mirror system 
+                        for health monitoring. The research focuses on integrating multiple sensors and display 
+                        technologies to create a comprehensive health dashboard. Key findings include optimal 
+                        mirror configurations, with vanity vision glass identified as the optimal choice for 
+                        building smart mirrors.
+                    </p>
+                    <div class="paper-meta">
+                        <span>Published: 2019</span>
+                        <span>Journal: IJERT</span>
+                        <a href="https://www.ijert.org/research/smart-mirror-IJERTV8IS050029.pdf" target="_blank" class="paper-link">
+                            Read Full Paper →
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Research Statistics -->
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-value">1,247</div>
+                    <div class="stat-label">Research Papers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">89</div>
+                    <div class="stat-label">Active Studies</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">156</div>
+                    <div class="stat-label">Research Partners</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">42</div>
+                    <div class="stat-label">Countries</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">15K+</div>
+                    <div class="stat-label">Citations</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">98%</div>
+                    <div class="stat-label">Accuracy Rate</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Technology Section -->
+        <section id="technology" style="padding: var(--spacing-3xl) 0;">
+            <h2 class="text-gradient" style="text-align: center; margin-bottom: var(--spacing-2xl);">
+                Core Technologies
+            </h2>
+            
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('sensors')">Biosensors</button>
+                <button class="tab" onclick="switchTab('ai')">AI & ML</button>
+                <button class="tab" onclick="switchTab('display')">Display Tech</button>
+                <button class="tab" onclick="switchTab('integration')">Integration</button>
+            </div>
+            
+            <div id="sensors" class="tab-content active">
+                <div class="grid grid-3">
+                    <div class="card">
+                        <h3 class="card-title">Optical Sensors</h3>
+                        <p class="card-description">
+                            High-resolution cameras with specialized filters for detecting microexpressions, 
+                            pupil dilation, and skin tone variations. Capable of capturing subtle physiological 
+                            changes invisible to the naked eye.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">Thermal Imaging</h3>
+                        <p class="card-description">
+                            FLIR-based thermal sensors providing real-time temperature mapping across facial 
+                            regions. Detects inflammation, circulation issues, and stress-related thermal patterns.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">Environmental Sensors</h3>
+                        <p class="card-description">
+                            Integrated air quality, humidity, and ambient light sensors to correlate environmental 
+                            factors with physiological responses and health outcomes.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="ai" class="tab-content">
+                <div class="grid grid-3">
+                    <div class="card">
+                        <h3 class="card-title">Computer Vision</h3>
+                        <p class="card-description">
+                            Advanced facial recognition and analysis algorithms using deep learning models 
+                            trained on diverse datasets for accurate health assessment across all demographics.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">Pattern Recognition</h3>
+                        <p class="card-description">
+                            Machine learning algorithms for identifying health patterns and anomalies from 
+                            continuous biometric data streams, enabling early detection of health issues.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">Predictive Analytics</h3>
+                        <p class="card-description">
+                            AI models that forecast health trends based on historical data and current readings, 
+                            providing personalized health insights and recommendations.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="display" class="tab-content">
+                <div class="grid grid-3">
+                    <div class="card">
+                        <h3 class="card-title">Smart Glass Technology</h3>
+                        <p class="card-description">
+                            Vanity vision glass with embedded OLED displays for seamless information overlay. 
+                            Maintains mirror functionality while displaying health data when activated.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">AR Overlay System</h3>
+                        <p class="card-description">
+                            Augmented reality projection system for displaying health metrics and visual 
+                            indicators directly on the mirror surface without obstructing the reflection.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">Adaptive UI</h3>
+                        <p class="card-description">
+                            Context-aware interface that adjusts display brightness, color, and information 
+                            density based on ambient conditions and user preferences.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="integration" class="tab-content">
+                <div class="grid grid-3">
+                    <div class="card">
+                        <h3 class="card-title">IoT Connectivity</h3>
+                        <p class="card-description">
+                            Seamless integration with smart home devices, wearables, and health monitoring 
+                            systems through secure IoT protocols and edge computing.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">Cloud Analytics</h3>
+                        <p class="card-description">
+                            Secure cloud infrastructure for data storage, processing, and advanced analytics 
+                            with HIPAA-compliant encryption and privacy protection.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">API Framework</h3>
+                        <p class="card-description">
+                            Comprehensive API for third-party integration, allowing healthcare providers 
+                            and developers to build custom applications on the Bio-Mirror platform.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- About Section -->
+        <section id="about" style="padding: var(--spacing-3xl) 0; text-align: center;">
+            <h2 class="text-gradient">About the Bio-Mirror Project</h2>
+            <div style="max-width: 800px; margin: 0 auto;">
+                <p style="font-size: 1.125rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: var(--spacing-xl);">
+                    The Bio-Mirror project represents a paradigm shift in personal health monitoring, 
+                    transforming everyday surfaces into intelligent health assessment tools. By combining 
+                    cutting-edge biosensor technology with advanced AI, we're creating a future where 
+                    health insights are seamlessly integrated into daily routines.
+                </p>
+                
+                <div class="info-box">
+                    <div class="info-box-title">Educational Demonstration</div>
+                    <div class="info-box-content">
+                        This interface demonstrates the potential capabilities of smart mirror technology. 
+                        It is intended for educational and research purposes only. Not for medical diagnosis 
+                        or treatment. Always consult healthcare professionals for medical advice.
+                    </div>
+                </div>
+                
+                <div class="btn-group" style="justify-content: center; margin-top: var(--spacing-2xl);">
+                    <button class="btn" onclick="downloadWhitepaper()">
+                        Download Whitepaper
+                    </button>
+                    <button class="btn btn-secondary" onclick="contactResearch()">
+                        Contact Research Team
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Metric Details Modal -->
+    <div id="metricModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Metric Details</h2>
+                <button class="close-btn" onclick="closeModal()">×</button>
+            </div>
+            <div id="modalBody">
+                <!-- Content will be dynamically inserted -->
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeCanvas();
+            setupEventListeners();
+            animateMetrics();
+        });
+        
+        // ===== CANVAS VISUALIZATION =====
+        function initializeCanvas() {
+            const canvas = document.getElementById('bioCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            function resizeCanvas() {
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+            }
+            
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            let time = 0;
+            
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Get current values
+                const hr = document.getElementById('hrSlider').value;
+                const rr = document.getElementById('rrSlider').value;
+                const stress = document.getElementById('stressSlider').value;
+                
+                // Draw grid
+                ctx.strokeStyle = 'rgba(6, 182, 212, 0.1)';
+                ctx.lineWidth = 1;
+                
+                for (let i = 0; i <= 10; i++) {
+                    const y = (canvas.height / 10) * i;
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(canvas.width, y);
+                    ctx.stroke();
+                }
+                
+                // Draw heart rate wave
+                ctx.strokeStyle = '#ef4444';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                
+                for (let x = 0; x < canvas.width; x += 2) {
+                    const y = canvas.height / 3 + Math.sin((x + time) * 0.02 * (hr / 60)) * 30;
+                    if (x === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                }
+                ctx.stroke();
+                
+                // Draw respiratory wave
+                ctx.strokeStyle = '#06b6d4';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                
+                for (let x = 0; x < canvas.width; x += 2) {
+                    const y = canvas.height / 2 + Math.sin((x + time) * 0.01 * (rr / 15)) * 50;
+                    if (x === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                }
+                ctx.stroke();
+                
+                // Draw stress indicator
+                ctx.strokeStyle = '#7c3aed';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                
+                for (let x = 0; x < canvas.width; x += 2) {
+                    const noise = Math.random() * stress * 2;
+                    const y = canvas.height * 0.7 + Math.sin((x + time) * 0.03) * 20 + noise;
+                    if (x === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                }
+                ctx.stroke();
+                
+                time += 2;
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
+        }
+        
+        // ===== EVENT LISTENERS =====
+        function setupEventListeners() {
+            // Slider updates
+            const sliders = [
+                { id: 'hrSlider', valueId: 'hrValue', suffix: ' BPM' },
+                { id: 'rrSlider', valueId: 'rrValue', suffix: ' /min' },
+                { id: 'tempSlider', valueId: 'tempValue', suffix: '°F' },
+                { id: 'stressSlider', valueId: 'stressValue', suffix: '' },
+                { id: 'spo2Slider', valueId: 'spo2Value', suffix: '%' },
+                { id: 'hydrationSlider', valueId: 'hydrationValue', suffix: '%' }
+            ];
+            
+            sliders.forEach(slider => {
+                const element = document.getElementById(slider.id);
+                const valueElement = document.getElementById(slider.valueId);
+                
+                element.addEventListener('input', (e) => {
+                    valueElement.textContent = e.target.value + slider.suffix;
+                    updateMetrics();
+                });
+            });
+        }
+        
+        // ===== METRICS UPDATE =====
+        function updateMetrics() {
+            // Calculate composite scores based on slider values
+            const hr = parseInt(document.getElementById('hrSlider').value);
+            const rr = parseInt(document.getElementById('rrSlider').value);
+            const temp = parseFloat(document.getElementById('tempSlider').value);
+            const stress = parseFloat(document.getElementById('stressSlider').value);
+            const spo2 = parseInt(document.getElementById('spo2Slider').value);
+            const hydration = parseInt(document.getElementById('hydrationSlider').value);
+            
+            // Update metric scores
+            const cardioScore = Math.round(100 - Math.abs(hr - 72) * 0.5 - stress * 2);
+            const respScore = Math.round(100 - Math.abs(rr - 16) * 2 - (100 - spo2));
+            const neuroScore = Math.round(100 - stress * 5 + hydration * 0.2);
+            const metabolicScore = Math.round(100 - Math.abs(temp - 98.6) * 5 - stress * 3);
+            
+            document.getElementById('cardioScore').textContent = Math.max(0, Math.min(100, cardioScore));
+            document.getElementById('respScore').textContent = Math.max(0, Math.min(100, respScore));
+            document.getElementById('neuroScore').textContent = Math.max(0, Math.min(100, neuroScore));
+            document.getElementById('metabolicScore').textContent = Math.max(0, Math.min(100, metabolicScore));
+        }
+        
+        // ===== ANIMATION =====
+        function animateMetrics() {
+            setInterval(() => {
+                document.querySelectorAll('.metric-change').forEach(el => {
+                    const change = (Math.random() * 4 - 2).toFixed(1);
+                    if (change > 0) {
+                        el.textContent = `↑ ${Math.abs(change)}% from baseline`;
+                        el.style.color = 'var(--success)';
+                    } else if (change < 0) {
+                        el.textContent = `↓ ${Math.abs(change)}% from baseline`;
+                        el.style.color = 'var(--warning)';
+                    } else {
+                        el.textContent = '→ Stable';
+                        el.style.color = 'var(--text-secondary)';
+                    }
+                });
+            }, 5000);
+        }
+        
+        // ===== TAB SWITCHING =====
+        function switchTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+        
+        // ===== MODAL FUNCTIONS =====
+        function showMetricDetails(metric) {
+            const modal = document.getElementById('metricModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            
+            const details = {
+                cardiovascular: {
+                    title: 'Cardiovascular System Analysis',
+                    content: `
+                        <div class="info-box">
+                            <div class="info-box-title">Heart Rate Variability (HRV)</div>
+                            <div class="info-box-content">
+                                HRV measures the variation in time between heartbeats, controlled by the autonomic 
+                                nervous system. Higher HRV indicates better cardiovascular fitness and stress resilience.
+                            </div>
+                        </div>
+                        <div class="stats-container" style="margin-top: var(--spacing-lg);">
+                            <div class="stat-item">
+                                <div class="stat-value">72</div>
+                                <div class="stat-label">BPM</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">65ms</div>
+                                <div class="stat-label">HRV</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">120/80</div>
+                                <div class="stat-label">BP</div>
+                            </div>
+                        </div>
+                    `
+                },
+                respiratory: {
+                    title: 'Respiratory System Analysis',
+                    content: `
+                        <div class="info-box">
+                            <div class="info-box-title">Breathing Pattern Analysis</div>
+                            <div class="info-box-content">
+                                Respiratory patterns provide insights into metabolic state, stress levels, and 
+                                autonomic balance. Irregular patterns may indicate stress or respiratory conditions.
+                            </div>
+                        </div>
+                        <div class="stats-container" style="margin-top: var(--spacing-lg);">
+                            <div class="stat-item">
+                                <div class="stat-value">16</div>
+                                <div class="stat-label">Breaths/min</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">98%</div>
+                                <div class="stat-label">SpO2</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">4:6</div>
+                                <div class="stat-label">I:E Ratio</div>
+                            </div>
+                        </div>
+                    `
+                },
+                neurological: {
+                    title: 'Neurological Balance Assessment',
+                    content: `
+                        <div class="info-box">
+                            <div class="info-box-title">Autonomic Nervous System</div>
+                            <div class="info-box-content">
+                                Balance between sympathetic (stress) and parasympathetic (relaxation) nervous systems. 
+                                Optimal balance indicates good stress management and recovery capacity.
+                            </div>
+                        </div>
+                        <div class="stats-container" style="margin-top: var(--spacing-lg);">
+                            <div class="stat-item">
+                                <div class="stat-value">Balanced</div>
+                                <div class="stat-label">ANS State</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">3.2</div>
+                                <div class="stat-label">Stress Index</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">85%</div>
+                                <div class="stat-label">Recovery</div>
+                            </div>
+                        </div>
+                    `
+                },
+                metabolic: {
+                    title: 'Metabolic Rate Analysis',
+                    content: `
+                        <div class="info-box">
+                            <div class="info-box-title">Metabolic Health Indicators</div>
+                            <div class="info-box-content">
+                                Metabolic rate reflects how efficiently your body converts nutrients into energy. 
+                                Factors include body temperature, hydration, and hormonal balance.
+                            </div>
+                        </div>
+                        <div class="stats-container" style="margin-top: var(--spacing-lg);">
+                            <div class="stat-item">
+                                <div class="stat-value">1,850</div>
+                                <div class="stat-label">Cal/day</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">98.6°F</div>
+                                <div class="stat-label">Temp</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">75%</div>
+                                <div class="stat-label">Hydration</div>
+                            </div>
+                        </div>
+                    `
+                }
+            };
+            
+            modalTitle.textContent = details[metric].title;
+            modalBody.innerHTML = details[metric].content;
+            modal.classList.add('active');
+        }
+        
+        function closeModal() {
+            document.getElementById('metricModal').classList.remove('active');
+        }
+        
+        // ===== ACTION FUNCTIONS =====
+        function exportData() {
+            const data = {
+                timestamp: new Date().toISOString(),
+                biometrics: {
+                    heartRate: document.getElementById('hrValue').textContent,
+                    respiratory: document.getElementById('rrValue').textContent,
+                    temperature: document.getElementById('tempValue').textContent,
+                    stress: document.getElementById('stressValue').textContent,
+                    spo2: document.getElementById('spo2Value').textContent,
+                    hydration: document.getElementById('hydrationValue').textContent
+                },
+                scores: {
+                    cardiovascular: document.getElementById('cardioScore').textContent,
+                    respiratory: document.getElementById('respScore').textContent,
+                    neurological: document.getElementById('neuroScore').textContent,
+                    metabolic: document.getElementById('metabolicScore').textContent
+                }
+            };
+            
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = `bio-mirror-data-${Date.now()}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+        }
+        
+        function calibrateSystem() {
+            alert('System calibration initiated. Please remain still for 30 seconds while sensors adjust to your baseline readings.');
+        }
+        
+        function openSettings() {
+            alert('Settings panel would open here with configuration options for sensors, display preferences, and data privacy settings.');
+        }
+        
+        function searchArxiv() {
+            const query = document.getElementById('arxivSearch').value;
+            if (query) {
+                window.open(`https://arxivxplorer.com/?q=${encodeURIComponent(query)}`, '_blank');
+            }
+        }
+        
+        function downloadWhitepaper() {
+            alert('Whitepaper download would initiate here. The document contains detailed technical specifications and research methodology.');
+        }
+        
+        function contactResearch() {
+            alert('Contact form would open here for research collaboration inquiries.');
+        }
+        
+        // ===== KEYBOARD SHORTCUTS =====
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
